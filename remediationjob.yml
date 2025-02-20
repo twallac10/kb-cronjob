@@ -1,0 +1,27 @@
+apiVersion: auto-remediation.t-wallace.com/v1beta1
+kind: RemediationJob
+metadata:
+  labels:
+    app.kubernetes.io/name: project
+    app.kubernetes.io/managed-by: kustomize
+    test: label
+  name: remediationjob-sample
+spec:
+  concurrencyPolicy: Allow # explicitly specify, but Allow is also default.
+  watch:
+    kind: Secret
+    prefix: "gapi-"
+    events: ["Delete"]
+    resourceMinTrigger: 0
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            args:
+            - /bin/sh
+            - -c
+            - date; echo Hello from the Kubernetes clusters
+          restartPolicy: OnFailure

@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- auto-remediation_v1beta1_remediationjob.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples

@@ -1,0 +1,52 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-auto-remediation-t-wallace-com-v1beta1-remediationjob
+  failurePolicy: Fail
+  name: mremediationjob-v1beta1.kb.io
+  rules:
+  - apiGroups:
+    - auto-remediation.t-wallace.com
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - remediationjobs
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-auto-remediation-t-wallace-com-v1beta1-remediationjob
+  failurePolicy: Fail
+  name: vremediationjob-v1beta1.kb.io
+  rules:
+  - apiGroups:
+    - auto-remediation.t-wallace.com
+    apiVersions:
+    - v1beta1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - remediationjobs
+  sideEffects: None

@@ -1,0 +1,9 @@
+apiVersion: auto-remediation.t-wallace.com/v1beta1
+kind: RemediationJob
+metadata:
+  labels:
+    app.kubernetes.io/name: kb-cronjob
+    app.kubernetes.io/managed-by: kustomize
+  name: remediationjob-sample
+spec:
+  # TODO(user): Add fields here
